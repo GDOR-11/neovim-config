@@ -37,6 +37,15 @@ vim.keymap.set("v", "<BS>", "d")
 vim.keymap.set("n", ":W", ":w")
 vim.keymap.set("n", ":Q", ":q")
 
+-- easy way to insert semicolon at the end of the line
+vim.keymap.set("n", ";", function()
+    local _, column = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.fn.feedkeys("$a;\27\48" .. column .. "l")
+end)
+
+-- "fixing" J
+vim.keymap.set("n", "J", "Jlhx")
+
 -- very useful for moving pieces of text up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
