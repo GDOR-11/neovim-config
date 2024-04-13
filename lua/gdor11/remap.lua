@@ -9,9 +9,12 @@ end)
 -- use <leader>t to open a terminal in a new pane in insert mode already
 -- after finishing, you can press esc to come back to normal mode
 vim.keymap.set("n", "<leader>t", function()
+    local filepath = vim.fn.expand("%:p")
+    local parent = string.gmatch(filepath, "(.*)/[^/]*$")()
+    print(parent)
     vim.cmd("rightbelow vsplit")
     vim.cmd("terminal")
-    vim.cmd("startinsert")
+    vim.fn.feedkeys("icd " .. parent .. "\10");
 end)
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>")
 
