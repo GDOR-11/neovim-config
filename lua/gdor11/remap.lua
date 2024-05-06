@@ -46,9 +46,6 @@ vim.keymap.set("n", ";", function()
     vim.fn.feedkeys("$a;\27\48" .. column .. "l")
 end)
 
--- "fixing" J
-vim.keymap.set("n", "J", "Jlhx")
-
 -- I like tab and shift+tab better
 -- also, I don't like that > and < deselect the code by default
 vim.keymap.set("x", "<Tab>",   function() if vim.fn.mode() == "V" then vim.fn.feedkeys(">gv") end end)
