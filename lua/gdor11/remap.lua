@@ -50,6 +50,8 @@ end)
 -- also, I don't like that > and < deselect the code by default
 vim.keymap.set("x", "<Tab>",   function() if vim.fn.mode() == "V" then vim.fn.feedkeys(">gv") end end)
 vim.keymap.set("x", "<S-Tab>", function() if vim.fn.mode() == "V" then vim.fn.feedkeys("<gv") end end)
+vim.keymap.set("n", "<Tab>", function() vim.fn.feedkeys("V>gv\27") end)
+vim.keymap.set("n", "<S-Tab>", function() vim.fn.feedkeys("V<gv\27") end)
 
 -- very useful for moving pieces of text up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
