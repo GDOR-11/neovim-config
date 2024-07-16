@@ -30,8 +30,13 @@ vim.keymap.set("n", "<leader>r", ":e<CR>")
 
 -- quick and easy way to add and remove empty lines to make code less dense
 -- (enter adds a line, backspace removes one)
-vim.keymap.set("n", "<CR>", "j0i<CR><ESC>k")
-vim.keymap.set("n", "<BS>", "ddjkk")
+-- vim.keymap.set("n", "<CR>", "j0i<CR><ESC>==k")
+-- vim.keymap.set("n", "<BS>", "ddjkk")
+vim.keymap.set("n", "<CR>", "$a<CR>.<ESC>v0d")
+vim.keymap.set("n", "<BS>", function ()
+    local line, _ = unpack(vim.api.nvim_win_get_cursor(0))
+    vim.fn.feedkeys("ddgg" .. (line - 2) .. "j")
+end)
 
 -- related to the previous one
 vim.keymap.set("v", "<BS>", "d")
