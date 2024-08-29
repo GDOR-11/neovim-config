@@ -61,10 +61,10 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- useful for scrolling up and down fast
-vim.keymap.set("n", "<C-d>", "16<C-d>zz")
-vim.keymap.set("n", "<C-u>", "16<C-u>zz")
-vim.keymap.set("i", "<C-d>", "<ESC>16<C-d>zza")
-vim.keymap.set("i", "<C-u>", "<ESC>16<C-u>zza")
+vim.keymap.set("n", "<C-d>", "16j")
+vim.keymap.set("n", "<C-u>", "16k")
+vim.keymap.set("i", "<C-d>", "<ESC>16ja")
+vim.keymap.set("i", "<C-u>", "<ESC>16ka")
 
 -- good for going to the previous and to the next match
 vim.keymap.set("n", "n", "nzzzv")
@@ -89,8 +89,8 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- turn the current file into an executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- come to neovim configuration folder
-vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua/gdor11<CR>");
+-- come to neovim configuration folder quickly
+vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.config/nvim/lua<CR>");
 
 -- source the configuration file
 vim.keymap.set("n", "<leader><leader>", function()

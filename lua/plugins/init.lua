@@ -2,6 +2,10 @@
 
 return {
     {
+        "folke/todo-comments.nvim",
+        dependencies = { "nvim-lua/plenary.nvim" }
+    },
+    {
         'mbbill/undotree',
         config = function()
             vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
@@ -10,7 +14,7 @@ return {
     {
         'tpope/vim-fugitive',
         config = function()
-            vim.keymap.set('n', '<leader>gs', vim.cmd.git)
+            vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
         end
     },
     'nvim-treesitter/playground',
@@ -39,7 +43,6 @@ return {
         build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { "javascript", "typescript", "rust", "c", "lua", "vim", "vimdoc", "query" },
                 sync_install = false,
                 auto_install = true,
                 highlight = {
@@ -60,22 +63,4 @@ return {
             })
         end
     },
-    {
-        'mrcjkb/rustaceanvim',
-        config = function()
-            -- local mason_registry = require('mason-registry')
-            -- local codelldb = mason_registry.get_package('codelldb')
-            -- local extension_path = codelldb:get_install_path() .. '/extension/'
-            -- local codelldb_path = extension_path .. 'adapter/codelldb'
-            -- local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
-            -- local cfg = require('rustaceanvim.config')
-
-            -- vim.g.rustaceanvim = {
-            --     dap = {
-            --         adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-            --     },
-            -- }
-        end
-    },
-    'mfussenegger/nvim-dap',
 }
