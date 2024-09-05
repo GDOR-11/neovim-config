@@ -18,6 +18,10 @@ vim.keymap.set('n', '<leader>vpp', '<cmd>Neotree ~/.config/nvim/lua<CR>');
 vim.keymap.set({ 'n', 'l', 'v', 'o', 't' }, '<ScrollWheelLeft>', '')
 vim.keymap.set({ 'n', 'l', 'v', 'o', 't' }, '<ScrollWheelRight>', '')
 
+-- easily and thoughtlessly create new splits
+vim.keymap.set('n', '<leader>vs', '<cmd>vsplit<CR>')
+vim.keymap.set('n', '<leader>hs', '<cmd>split<CR>')
+
 -- these two keymaps make working with the terminal emulator easier:
 -- use <leader>t to open a terminal in a new pane in insert mode already
 -- after finishing, you can press esc to come back to normal mode
@@ -53,8 +57,8 @@ end)
 vim.keymap.set('v', '<BS>', 'd')
 
 -- now you don't have to worry about releasing shift
-vim.keymap.set('n', '<cmd>W', '<cmd>w')
-vim.keymap.set('n', '<cmd>Q', '<cmd>q')
+vim.keymap.set('n', ':W', ':w')
+vim.keymap.set('n', ':Q', ':q')
 
 -- easy way to insert semicolon at the end of the line
 vim.keymap.set('n', ';', function()
@@ -70,8 +74,8 @@ vim.keymap.set('n', '<Tab>',   'V>')
 vim.keymap.set('n', '<S-Tab>', 'V<')
 
 -- very useful for moving pieces of text up and down
-vim.keymap.set('v', 'J', '<cmd>m \'>+1<CR>gv=gv')
-vim.keymap.set('v', 'K', '<cmd>m \'<-2<CR>gv=gv')
+vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
+vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
 
 -- useful for scrolling up and down fast
 vim.keymap.set('n', '<C-d>', '16j')
@@ -113,7 +117,7 @@ vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
 -- replace the word under the cursor across the entire file
-vim.keymap.set('n', '<leader>s', [[<cmd>%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- turn the current file into an executable
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
