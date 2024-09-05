@@ -22,7 +22,7 @@ return {
     },
     {
         'rcarriga/nvim-dap-ui',
-        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
+        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio', 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' },
         config = function()
             require('dapui').setup()
         end
@@ -30,7 +30,7 @@ return {
     {
         'mrcjkb/rustaceanvim',
         lazy = false,
-        dependencies = { 'VonHeikemen/lsp-zero.nvim' },
+        dependencies = { 'williamboman/mason-lspconfig.nvim' },
         config = function()
             local mason_registry = require('mason-registry')
             local codelldb = mason_registry.get_package('codelldb')

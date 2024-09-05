@@ -12,7 +12,7 @@ vim.opt.wrap = false
 
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv('HOME') .. '/.vim/undodir'
 vim.opt.undofile = true
 
 vim.opt.hlsearch = false
@@ -21,12 +21,12 @@ vim.opt.incsearch = true
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 16
-vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
+vim.opt.signcolumn = 'yes'
+vim.opt.isfname:append('@-@')
 
-vim.opt.updatetime = 50
+vim.opt.updatetime = 500
 
-vim.opt.colorcolumn = ""
+vim.opt.colorcolumn = ''
 
-vim.g.mapleader = " "
-vim.g.localmapleader = " "
+vim.g.mapleader = ' '
+vim.g.localmapleader = ' '

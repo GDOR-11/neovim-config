@@ -2,13 +2,13 @@
 
 return {
     {
-        "folke/todo-comments.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" }
+        'folke/todo-comments.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' }
     },
     {
         'mbbill/undotree',
         config = function()
-            vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+            vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
         end
     },
     {
@@ -20,14 +20,13 @@ return {
     'nvim-treesitter/playground',
     {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.8',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
             local builtin = require('telescope.builtin')
             vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
             vim.keymap.set('n', '<C-p>', builtin.git_files, {})
             vim.keymap.set('n', '<leader>ps', function()
-                builtin.grep_string({ search = vim.fn.input("Grep > ") });
+                builtin.grep_string({ search = vim.fn.input('Grep > ') });
             end)
         end
     },
@@ -43,6 +42,7 @@ return {
         build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup({
+                ensure_installed = { 'javascript', 'typescript', 'rust', 'c', 'lua', 'vim', 'vimdoc', 'query' },
                 sync_install = false,
                 auto_install = true,
                 highlight = {
