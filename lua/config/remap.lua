@@ -1,9 +1,18 @@
--- save and leave, instead of just leaving
+-- project view (a.k.a. open file system)
 vim.keymap.set('n', '<leader>pv', function()
     -- must be a pcall, because vim.cmd('w') throws an error when 'readonly' is set on
     pcall(vim.cmd['w'])
     vim.cmd('Neotree')
 end)
+
+-- git view
+vim.keymap.set('n', '<leader>gv', function()
+    pcall(vim.cmd['w'])
+    vim.cmd('Neotree git_status')
+end)
+
+-- come to neovim configuration folder quickly
+vim.keymap.set('n', '<leader>vpp', '<cmd>Neotree ~/.config/nvim/lua<CR>');
 
 -- I hate sideways scrolling
 vim.keymap.set({ 'n', 'l', 'v', 'o', 't' }, '<ScrollWheelLeft>', '')
@@ -30,7 +39,7 @@ vim.keymap.set('t', '<C-w>', '<C-\\><C-n><C-w>')
 vim.keymap.set('n', 'Ç', ':');
 
 -- for quick buffer reloading
-vim.keymap.set('n', '<leader>r', ':e<CR>')
+vim.keymap.set('n', '<leader>r', '<cmd>e<CR>')
 
 -- quick and easy way to add and remove empty lines to make code less dense
 -- (enter adds a line, backspace removes one)
@@ -44,8 +53,8 @@ end)
 vim.keymap.set('v', '<BS>', 'd')
 
 -- now you don't have to worry about releasing shift
-vim.keymap.set('n', ':W', ':w')
-vim.keymap.set('n', ':Q', ':q')
+vim.keymap.set('n', '<cmd>W', '<cmd>w')
+vim.keymap.set('n', '<cmd>Q', '<cmd>q')
 
 -- easy way to insert semicolon at the end of the line
 vim.keymap.set('n', ';', function()
@@ -61,8 +70,8 @@ vim.keymap.set('n', '<Tab>',   'V>')
 vim.keymap.set('n', '<S-Tab>', 'V<')
 
 -- very useful for moving pieces of text up and down
-vim.keymap.set('v', 'J', ':m \'>+1<CR>gv=gv')
-vim.keymap.set('v', 'K', ':m \'<-2<CR>gv=gv')
+vim.keymap.set('v', 'J', '<cmd>m \'>+1<CR>gv=gv')
+vim.keymap.set('v', 'K', '<cmd>m \'<-2<CR>gv=gv')
 
 -- useful for scrolling up and down fast
 vim.keymap.set('n', '<C-d>', '16j')
@@ -80,6 +89,21 @@ vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 -- shortcut to format the entire buffer
 vim.keymap.set('n', '<leader>f', vim.lsp.buf.format)
 
+-- make macros easier (q to start recording, # to replay)
+vim.keymap.set('n', 'q', (function()
+    local recording = false
+    vim.keymap.set('n', '∬', 'q') -- I used this to avoid recursion
+    return function()
+        if recording then
+            vim.fn.feedkeys('∬')
+        else
+            vim.fn.feedkeys('∬a')
+        end
+        recording = not recording
+    end
+end)())
+vim.keymap.set('n', '#', '@a')
+
 -- go to next and previous errors
 vim.keymap.set('n', '<C-k>', '<cmd>cnext<CR>zz')
 vim.keymap.set('n', '<C-j>', '<cmd>cprev<CR>zz')
@@ -89,13 +113,10 @@ vim.keymap.set('n', '<leader>k', '<cmd>lnext<CR>zz')
 vim.keymap.set('n', '<leader>j', '<cmd>lprev<CR>zz')
 
 -- replace the word under the cursor across the entire file
-vim.keymap.set('n', '<leader>s', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set('n', '<leader>s', [[<cmd>%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 -- turn the current file into an executable
 vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true })
-
--- come to neovim configuration folder quickly
-vim.keymap.set('n', '<leader>vpp', '<cmd>Neotree ~/.config/nvim/lua<CR>');
 
 -- source a configuration file
 vim.keymap.set('n', '<leader><leader>', function()
