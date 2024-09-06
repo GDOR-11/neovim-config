@@ -13,6 +13,7 @@ return {
         config = function()
             local lsp_zero = require('lsp-zero')
 
+
             lsp_zero.on_attach(function(_, bufnr)
                 local opts = { buffer = bufnr, remap = false }
 
@@ -27,6 +28,10 @@ return {
                 vim.keymap.set('n', '<leader>vrn', function() vim.lsp.buf.rename() end, opts)
                 vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
             end)
+
+            vim.diagnostic.config({
+                severity_sort = true
+            })
 
             local cmp = require('cmp')
             local cmp_select = { behavior = cmp.SelectBehavior.Select }
