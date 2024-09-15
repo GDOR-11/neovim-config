@@ -39,7 +39,7 @@ return {
         build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { 'javascript', 'typescript', 'rust', 'c', 'lua', 'vim', 'vimdoc', 'query' },
+                ensure_installed = { 'html', 'lua', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'query' },
                 sync_install = false,
                 auto_install = true,
                 highlight = {
@@ -59,5 +59,19 @@ return {
                 extra = { eol = '|' }
             })
         end
+    },
+    {
+        'kawre/leetcode.nvim',
+        build = ':TSUpdate html',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+            'MunifTanjim/nui.nvim',
+            'nvim-treesitter/nvim-treesitter',
+        },
+        opts = {
+            arg = 'leetcode',
+            lang = 'rust'
+        }
     },
 }
