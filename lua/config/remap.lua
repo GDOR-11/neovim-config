@@ -1,9 +1,5 @@
 -- project view (a.k.a. open file system)
-vim.keymap.set('n', '<leader>pv', function()
-    -- must be a pcall, because vim.cmd('w') throws an error when 'readonly' is set on
-    pcall(vim.cmd['w'])
-    vim.cmd('Neotree')
-end)
+vim.keymap.set('n', '<leader>pv', '<cmd>Neotree<CR>')
 
 -- git view
 vim.keymap.set('n', '<leader>gv', function()
