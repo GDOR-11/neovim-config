@@ -2,6 +2,62 @@
 
 return {
     {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        priority = 1000,
+        config = function()
+            vim.diagnostic.config({ virtual_text = false }) -- disables neovim default
+
+            require('tiny-inline-diagnostic').setup({ preset = 'powerline' })
+        end
+    },
+    {
+        'Julian/lean.nvim',
+        event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+
+        dependencies = {
+            'neovim/nvim-lspconfig',
+            'nvim-lua/plenary.nvim',
+            'hrsh7th/nvim-cmp',
+            'nvim-telescope/telescope.nvim'
+        },
+
+        ---@type lean.Config
+        opts = { -- see below for full configuration options
+            mappings = true,
+        }
+    },
+    {
+        'github/copilot.vim',
+        config = function()
+            vim.g.copilot_no_tab_map = true
+            vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<CR>")', {
+                expr = true,
+                replace_keycodes = false
+            })
+            vim.g.copilot_no_tab_map = true
+        end
+    },
+    {
+        'samodostal/image.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim', 'm00qek/baleia.nvim' },
+        config = function()
+            require('image').setup({
+                render = {
+                    min_padding = 5,
+                    show_label = true,
+                    show_image_dimensions = true,
+                    use_dither = true,
+                    foreground_color = true,
+                    background_color = true
+                },
+                events = {
+                    update_on_nvim_resize = true,
+                },
+            })
+        end
+    },
+    {
         'folke/todo-comments.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
         config = function()
@@ -39,7 +95,7 @@ return {
         build = ':TSUpdate',
         config = function()
             require('nvim-treesitter.configs').setup({
-                ensure_installed = { 'html', 'lua', 'markdown', 'markdown_inline', 'vim', 'vimdoc', 'query' },
+                ensure_installed = { 'markdown', 'markdown_inline' },
                 sync_install = false,
                 auto_install = true,
                 highlight = {

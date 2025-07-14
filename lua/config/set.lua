@@ -30,3 +30,7 @@ vim.opt.colorcolumn = ''
 
 vim.g.mapleader = ' '
 vim.g.localmapleader = ' '
+
+vim.g.markdown_fenced_languages = {
+    'ts=typescript'
+}

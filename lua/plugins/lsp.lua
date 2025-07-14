@@ -1,57 +1,40 @@
 return {
     {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
+        "mason-org/mason-lspconfig.nvim",
+        opts = {},
         dependencies = {
-            -- LSP Support
-            'neovim/nvim-lspconfig',
-            -- Autocompletion
-            'hrsh7th/nvim-cmp',
-            'hrsh7th/cmp-nvim-lsp',
-            'L3MON4D3/LuaSnip',
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
         },
         config = function()
-            local lsp_zero = require('lsp-zero')
+            vim.api.nvim_create_autocmd("LspAttach", {
+                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+                callback = function(ev)
+                    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-
-            lsp_zero.on_attach(function(_, bufnr)
-                local opts = { buffer = bufnr, remap = false }
-
-                vim.keymap.set('n', 'gd', function() vim.lsp.buf.definition() end, opts)
-                vim.keymap.set('n', 'K', function() vim.lsp.buf.hover() end, opts)
-                vim.keymap.set('n', '<leader>vws', function() vim.lsp.buf.workspace_symbol() end, opts)
-                vim.keymap.set('n', '<leader>vd', function() vim.diagnostic.open_float() end, opts)
-                vim.keymap.set('n', '[d', function() vim.diagnostic.goto_next() end, opts)
-                vim.keymap.set('n', ']d', function() vim.diagnostic.goto_prev() end, opts)
-                vim.keymap.set('n', '<leader>vca', function() vim.lsp.buf.code_action() end, opts)
-                vim.keymap.set('n', '<leader>vrr', function() vim.lsp.buf.references() end, opts)
-                vim.keymap.set('n', '<leader>vrn', function() vim.lsp.buf.rename() end, opts)
-                vim.keymap.set('i', '<C-h>', function() vim.lsp.buf.signature_help() end, opts)
-            end)
-
-            vim.diagnostic.config({
-                severity_sort = true
+                    local opts = { buffer = ev.bug, remap = false }
+                    vim.keymap.set('n', 'gD', vim.lsp.buf.type_definition, opts)
+                    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+                    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+                    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+                    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+                    vim.keymap.set('n', '<leader>vrn', vim.lsp.buf.rename, opts)
+                    vim.keymap.set('n', '<leader>vca', vim.lsp.buf.code_action, opts)
+                end,
             })
 
-            local cmp = require('cmp')
-            local cmp_select = { behavior = cmp.SelectBehavior.Select }
+            local nvim_lsp = require('lspconfig')
 
-            cmp.setup({
-                sources = {
-                    { name = 'path' },
-                    { name = 'nvim_lsp' },
-                    { name = 'nvim_lua' },
-                    { name = 'luasnip', keyword_length = 2 },
-                    { name = 'buffer',  keyword_length = 3 },
-                },
-                formatting = lsp_zero.cmp_format(),
-                mapping = cmp.mapping.preset.insert({
-                    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-                    ['<C-Space>'] = cmp.mapping.complete(),
-                }),
+            -- denols and ts_ls need specific configurations to avoid conflicting
+            nvim_lsp.denols.setup({
+                on_attach = on_attach,
+                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+            })
+            nvim_lsp.ts_ls.setup({
+                on_attach = on_attach,
+                root_dir = nvim_lsp.util.root_pattern("package.json"),
+                single_file_support = false
             })
         end
-    },
+    }
 }

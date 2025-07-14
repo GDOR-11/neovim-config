@@ -22,7 +22,12 @@ return {
     },
     {
         'rcarriga/nvim-dap-ui',
-        dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio', 'williamboman/mason.nvim', 'williamboman/mason-lspconfig.nvim' },
+        dependencies = {
+            'mfussenegger/nvim-dap',
+            'nvim-neotest/nvim-nio',
+            'mason-org/mason.nvim',
+            'mason-org/mason-lspconfig.nvim'
+        },
         config = function()
             require('dapui').setup()
         end
@@ -30,11 +35,12 @@ return {
     {
         'mrcjkb/rustaceanvim',
         lazy = false,
-        dependencies = { 'williamboman/mason-lspconfig.nvim' },
+        dependencies = { 'mason-org/mason-lspconfig.nvim' },
         config = function()
             local mason_registry = require('mason-registry')
             local codelldb = mason_registry.get_package('codelldb')
-            local extension_path = codelldb:get_install_path() .. '/extension/'
+            -- if you're getting an error here, make sure you have codelldb installed via Mason
+            local extension_path = '$MASON/share/codelldb/extension'
             local codelldb_path = extension_path .. 'adapter/codelldb'
             local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
             local cfg = require('rustaceanvim.config')

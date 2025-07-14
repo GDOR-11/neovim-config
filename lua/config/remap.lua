@@ -56,12 +56,6 @@ vim.keymap.set('v', '<BS>', 'd')
 vim.keymap.set('n', ':W', ':w')
 vim.keymap.set('n', ':Q', ':q')
 
--- easy way to insert semicolon at the end of the line
-vim.keymap.set('n', ';', function()
-    local _, column = unpack(vim.api.nvim_win_get_cursor(0))
-    vim.fn.feedkeys('$a;\27\48' .. column .. 'l')
-end)
-
 -- I like tab and shift+tab better
 -- also, I don't like that > and < deselect the code by default
 vim.keymap.set('x', '<Tab>',   function() if vim.fn.mode() == 'V' then vim.fn.feedkeys('>gv') end end)
