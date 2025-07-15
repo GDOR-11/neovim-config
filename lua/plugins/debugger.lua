@@ -33,23 +33,33 @@ return {
         end
     },
     {
-        'mrcjkb/rustaceanvim',
-        lazy = false,
-        dependencies = { 'mason-org/mason-lspconfig.nvim' },
-        config = function()
-            local mason_registry = require('mason-registry')
-            local codelldb = mason_registry.get_package('codelldb')
-            -- if you're getting an error here, make sure you have codelldb installed via Mason
-            local extension_path = '$MASON/share/codelldb/extension'
-            local codelldb_path = extension_path .. 'adapter/codelldb'
-            local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
-            local cfg = require('rustaceanvim.config')
+        'jay-babu/mason-nvim-dap.nvim',
+        dependencies = {
+            "mfussenegger/nvim-dap",
+            "williamboman/mason.nvim",
+        },
+        opts = {
+            handlers = {}
+        }
+    }
+    -- {
+    --     'mrcjkb/rustaceanvim',
+    --     lazy = false,
+    --     dependencies = { 'mason-org/mason-lspconfig.nvim' },
+    --     config = function()
+    --         local mason_registry = require('mason-registry')
+    --         local codelldb = mason_registry.get_package('codelldb')
+    --         -- if you're getting an error here, make sure you have codelldb installed via Mason
+    --         local extension_path = '$MASON/share/codelldb/extension'
+    --         local codelldb_path = extension_path .. 'adapter/codelldb'
+    --         local liblldb_path = extension_path .. 'lldb/lib/liblldb.dylib'
+    --         local cfg = require('rustaceanvim.config')
 
-            vim.g.rustaceanvim = {
-                dap = {
-                    adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
-                },
-            }
-        end
-    },
+    --         vim.g.rustaceanvim = {
+    --             dap = {
+    --                 adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
+    --             },
+    --         }
+    --     end
+    -- },
 }

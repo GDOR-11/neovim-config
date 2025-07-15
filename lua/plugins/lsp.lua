@@ -1,14 +1,14 @@
 return {
     {
-        "mason-org/mason-lspconfig.nvim",
+        'mason-org/mason-lspconfig.nvim',
         opts = {},
         dependencies = {
-            { "mason-org/mason.nvim", opts = {} },
-            "neovim/nvim-lspconfig",
+            { 'mason-org/mason.nvim', opts = {} },
+            'neovim/nvim-lspconfig',
         },
         config = function()
-            vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+            vim.api.nvim_create_autocmd('LspAttach', {
+                group = vim.api.nvim_create_augroup('UserLspConfig', {}),
                 callback = function(ev)
                     vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
@@ -28,11 +28,11 @@ return {
             -- denols and ts_ls need specific configurations to avoid conflicting
             nvim_lsp.denols.setup({
                 on_attach = on_attach,
-                root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+                root_dir = nvim_lsp.util.root_pattern('deno.json', 'deno.jsonc'),
             })
             nvim_lsp.ts_ls.setup({
                 on_attach = on_attach,
-                root_dir = nvim_lsp.util.root_pattern("package.json"),
+                root_dir = nvim_lsp.util.root_pattern('package.json'),
                 single_file_support = false
             })
         end
